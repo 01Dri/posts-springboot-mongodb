@@ -3,6 +3,7 @@ package me.dri.workshopmongo.config;
 import me.dri.workshopmongo.domain.Post;
 import me.dri.workshopmongo.domain.User;
 import me.dri.workshopmongo.dtop.AuthorDTO;
+import me.dri.workshopmongo.dtop.CommentDTO;
 import me.dri.workshopmongo.repository.PostRepository;
 import me.dri.workshopmongo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,13 @@ public class TestConfig  implements CommandLineRunner {
 
         Post post1 = new Post(null, sdf .parse("23/01/2003"), "Partiu viagem", "Vou viajar para SP",  new AuthorDTO(maria));
         Post post2 = new Post(null, sdf .parse("23/01/2003"), "Bom dia", "Acordei feliz hoje", new AuthorDTO(maria));
+
+        CommentDTO c1 = new CommentDTO("Boa viagem mano!", sdf.parse("23/01/2018"), new AuthorDTO(alex));
+        CommentDTO c2 = new CommentDTO("Aproveitee", sdf.parse("23/01/2018"), new AuthorDTO(bob));
+        CommentDTO c3 = new CommentDTO("Tenha um otimo dia", sdf.parse("23/01/2018"), new AuthorDTO(alex));
+
+        post1.getComments().addAll(Arrays.asList(c1,c2));
+        post2.getComments().add(c3);
 
         postRepository.saveAll(Arrays.asList(post1, post2));
 
